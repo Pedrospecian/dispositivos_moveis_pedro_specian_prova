@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,8 +7,6 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-/*import Timer from './components/timer.js';
-import Casa from './components/casa.js';*/
 import Tabuleiro from './components/tabuleiro.js';
 
 export default function App() {
@@ -28,8 +26,17 @@ export default function App() {
   );
 }
 
+const estadoGlobal = {
+  ganhadores: [
+    { nome: "teste", tempo: 12, movimentos: 3 },
+    { nome: "teste", tempo: 1, movimentos: 4 },
+    { nome: "teste", tempo: 2, movimentos: 5 }
+  ]
+};
+
 function Home() {
   return <div>
+    <a target="_blank" href="https://github.com/Pedrospecian/dispositivos_moveis_pedro_specian_prova">Visite a página do desenvolvedor</a>
     <h1>Bem-vindo ao Jogo da Velha</h1>
     <h2>Ranking</h2>
     <table>
@@ -41,7 +48,11 @@ function Home() {
           <th>Tempo</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        {estadoGlobal.ganhadores.map(function(elemento){
+          return (<tr><td>1</td><td>{elemento.nome}</td><td>{elemento.movimentos}</td><td>{elemento.tempo}</td></tr>)
+        })}
+      </tbody>
     </table>
     Mostrar os 10 primeiros jogadores do Ranking
     <br/>
@@ -53,7 +64,7 @@ function Jogar() {
   return <div className="jogo">
         <Link to="/">Voltar para a página inicial</Link>
         <div className="tabuleiro-wrapper">
-          <Tabuleiro />
+          <Tabuleiro estadoGlobal={estadoGlobal} />
         </div>
       </div>;
 }

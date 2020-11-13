@@ -1,6 +1,7 @@
 import React from "react";
 import Casa from './casa.js';
 import Timer from './timer.js';
+const fs = require('fs');
 
 class Tabuleiro extends React.Component {
   constructor(props) {
@@ -9,7 +10,13 @@ class Tabuleiro extends React.Component {
       casas: Array(9).fill(null),
       tempo: this.props.tempo,
       pensando: false,
+      nomeVencedor: '',
+      tempoVencedor: '',
     };
+  }
+
+  escreveNoRanking(nome, tempo) {
+    this.props.estadoGlobal.ganhadores.push({nome: nome, tempo: tempo, movimentos: 30})
   }
 
   handleClick(i) {
@@ -60,7 +67,12 @@ class Tabuleiro extends React.Component {
     let infoBottom;
     if (vencedor === 'X') {
       status = 'Você venceu!';
-      infoBottom = (<div className>formulario de vitoria</div>)
+      infoBottom = (<div className="form-vitoria">
+        <form>
+          <input type="text" placeholder="Insira seu nome" />
+          <button onClick={this.escreveNoRanking('', '')} type="button">Registrar</button>
+        </form>
+      </div>)
     } else {
       if (vencedor === 'O') {
         status = 'Você perdeu!';

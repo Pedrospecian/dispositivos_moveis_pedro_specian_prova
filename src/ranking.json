@@ -1,0 +1,7 @@
+{
+  "ganhadores": [
+    { "id": 1, "nome": "teste", "tempo": 12 },
+    { "id": 2, "nome": "teste", "tempo": 1 },
+    { "id": 3, "nome": "teste", "tempo": 2 }
+  ]
+}
