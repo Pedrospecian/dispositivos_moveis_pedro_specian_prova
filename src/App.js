@@ -30,6 +30,12 @@ const estadoGlobal = {
   ganhadores: [
     { nome: "teste", tempo: 12, movimentos: 3 },
     { nome: "teste", tempo: 1, movimentos: 4 },
+    { nome: "teste", tempo: 2, movimentos: 5 },
+    { nome: "teste", tempo: 12, movimentos: 3 },
+    { nome: "teste", tempo: 1, movimentos: 4 },
+    { nome: "teste", tempo: 2, movimentos: 5 },
+    { nome: "teste", tempo: 12, movimentos: 3 },
+    { nome: "teste", tempo: 1, movimentos: 4 },
     { nome: "teste", tempo: 2, movimentos: 5 }
   ]
 };
@@ -49,8 +55,15 @@ function Home() {
         </tr>
       </thead>
       <tbody>
-        {estadoGlobal.ganhadores.map(function(elemento){
-          return (<tr><td>1</td><td>{elemento.nome}</td><td>{elemento.movimentos}</td><td>{elemento.tempo}</td></tr>)
+        {estadoGlobal.ganhadores.sort((a, b) => (a.tempo > b.tempo) ? 1 : -1).map(function(elemento, index){
+          if (index < 10) {
+            return (<tr>
+              <td>{index + 1}</td>
+              <td>{elemento.nome}</td>
+              <td>{elemento.movimentos}</td>
+              <td>{Math.floor(elemento.tempo / 60)}:{(elemento.tempo % 60) < 10 ? '0' + (elemento.tempo % 60) : (elemento.tempo % 60) }</td>
+            </tr>)
+          }
         })}
       </tbody>
     </table>

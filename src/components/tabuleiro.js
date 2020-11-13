@@ -33,7 +33,6 @@ class Tabuleiro extends React.Component {
   }
 
   handleClick(i) {
-    //alert(this.state.tempo);
     if(!this.state.pensando) {
       const casas = this.state.casas.slice();
       if (conferirVencedor(casas) || casas[i]) {
@@ -63,8 +62,8 @@ class Tabuleiro extends React.Component {
             pensando: false
           });
         }, 2000);
-      } else {        
-        this.setState({tempoVencedor: this.state.tempo});
+      } else {
+        this.setState({tempoVencedor: this.state.tempo / 2});
       }
     }  
   }
