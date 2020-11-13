@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import Timer from './components/timer.js';
-import Casa from './components/casa.js';
+/*import Timer from './components/timer.js';
+import Casa from './components/casa.js';*/
 import Tabuleiro from './components/tabuleiro.js';
 
 export default function App() {

@@ -13,33 +13,35 @@ class Tabuleiro extends React.Component {
   }
 
   handleClick(i) {
-    const casas = this.state.casas.slice();
-    if (conferirVencedor(casas) || casas[i]) {
-      return;
-    }
-    casas[i] = 'X';
-    let casaComputador = i;
-    this.setState({
-      casas: casas
-    });
-
-    if(!conferirVencedor(casas)) {
-
-      while(casas[casaComputador] === 'X' || casas[casaComputador] === 'O') {
-        casaComputador = Math.floor(Math.random() * (9));
+    if(!this.state.pensando) {
+      const casas = this.state.casas.slice();
+      if (conferirVencedor(casas) || casas[i]) {
+        return;
       }
-
+      casas[i] = 'X';
+      let casaComputador = i;
       this.setState({
-        pensando: true
+        casas: casas
       });
 
-      setTimeout(() => {
-        casas[casaComputador] = 'O';
+      if(!conferirVencedor(casas)) {
+
+        while(casas[casaComputador] === 'X' || casas[casaComputador] === 'O') {
+          casaComputador = Math.floor(Math.random() * (9));
+        }
+
         this.setState({
-          casas: casas,
-          pensando: false
+          pensando: true
         });
-      }, 2000);
+
+        setTimeout(() => {
+          casas[casaComputador] = 'O';
+          this.setState({
+            casas: casas,
+            pensando: false
+          });
+        }, 2000);
+      }
     }  
   }
 
