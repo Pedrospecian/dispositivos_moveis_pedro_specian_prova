@@ -1,7 +1,8 @@
 import React from "react";
 import Casa from './casa.js';
 import Timer from './timer.js';
-const fs = require('fs');
+
+import { useHistory } from "react-router-dom";
 
 class Tabuleiro extends React.Component {
   constructor(props) {
@@ -16,12 +17,14 @@ class Tabuleiro extends React.Component {
       nomeVencedor: '',
       tempoVencedor: 0,
       movimentosVencedor: 0,
+      gravado: false,
     };
   }
 
   escreveNoRanking() {
     const obj = {nome: this.state.nomeVencedor, tempo: this.state.tempoVencedor, movimentos: this.state.movimentosVencedor};
     this.props.estadoGlobal.ganhadores.push(obj);
+    this.setState({gravado: true});
   }
 
   handleChangeNome(e){
@@ -83,12 +86,14 @@ class Tabuleiro extends React.Component {
     let infoBottom;
     if (vencedor === 'X') {
       status = 'Você venceu!';
-      infoBottom = (<div className="form-vitoria">
-        <form>
-          <input type="text" placeholder="Insira seu nome" onChange={this.handleChangeNome} />
-          <button onClick={this.escreveNoRanking} type="button">Registrar</button>
-        </form>
-      </div>)
+      if (!this.state.gravado) {      
+        infoBottom = (<div className="form-vitoria">
+          <form>
+            <input type="text" placeholder="Insira seu nome" onChange={this.handleChangeNome} />
+            <button onClick={this.escreveNoRanking} type="button">Registrar</button>
+          </form>
+        </div>)
+      }
     } else {
       if (vencedor === 'O') {
         status = 'Você perdeu!';

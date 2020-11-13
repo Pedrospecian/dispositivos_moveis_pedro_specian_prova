@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory,
 } from "react-router-dom";
 import './App.css';
 
@@ -28,15 +29,9 @@ export default function App() {
 
 const estadoGlobal = {
   ganhadores: [
-    { nome: "teste", tempo: 12, movimentos: 3 },
-    { nome: "teste", tempo: 1, movimentos: 4 },
-    { nome: "teste", tempo: 2, movimentos: 5 },
-    { nome: "teste", tempo: 12, movimentos: 3 },
-    { nome: "teste", tempo: 1, movimentos: 4 },
-    { nome: "teste", tempo: 2, movimentos: 5 },
-    { nome: "teste", tempo: 12, movimentos: 3 },
-    { nome: "teste", tempo: 1, movimentos: 4 },
-    { nome: "teste", tempo: 2, movimentos: 5 }
+    { nome: "Pedro", tempo: 12, movimentos: 3 },
+    { nome: "João", tempo: 9, movimentos: 4 },
+    { nome: "Ricardo", tempo: 10, movimentos: 5 },
   ]
 };
 
@@ -44,6 +39,7 @@ function Home() {
   return <div>
     <a target="_blank" href="https://github.com/Pedrospecian/dispositivos_moveis_pedro_specian_prova">Visite a página do desenvolvedor</a>
     <h1>Bem-vindo ao Jogo da Velha</h1>
+    <h3>Pedro Toupitzen Specian - RA 1840481923023</h3>
     <h2>Ranking</h2>
     <table>
       <thead>
