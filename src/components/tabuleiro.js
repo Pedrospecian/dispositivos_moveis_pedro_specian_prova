@@ -6,20 +6,34 @@ const fs = require('fs');
 class Tabuleiro extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChangeNome = this.handleChangeNome.bind(this);
+    this.escreveNoRanking = this.escreveNoRanking.bind(this);
+    this.atualizaTempo = this.atualizaTempo.bind(this);
     this.state = {
       casas: Array(9).fill(null),
-      tempo: this.props.tempo,
+      tempo: 0,
       pensando: false,
       nomeVencedor: '',
-      tempoVencedor: '',
+      tempoVencedor: 0,
+      movimentosVencedor: 0,
     };
   }
 
-  escreveNoRanking(nome, tempo) {
-    this.props.estadoGlobal.ganhadores.push({nome: nome, tempo: tempo, movimentos: 30})
+  escreveNoRanking() {
+    const obj = {nome: this.state.nomeVencedor, tempo: this.state.tempoVencedor, movimentos: this.state.movimentosVencedor};
+    this.props.estadoGlobal.ganhadores.push(obj);
+  }
+
+  handleChangeNome(e){
+    this.setState({nomeVencedor: e.target.value});
+  }
+
+  atualizaTempo(){
+    this.setState({tempo: this.state.tempo + 1});
   }
 
   handleClick(i) {
+    //alert(this.state.tempo);
     if(!this.state.pensando) {
       const casas = this.state.casas.slice();
       if (conferirVencedor(casas) || casas[i]) {
@@ -28,7 +42,8 @@ class Tabuleiro extends React.Component {
       casas[i] = 'X';
       let casaComputador = i;
       this.setState({
-        casas: casas
+        casas: casas,
+        movimentosVencedor: this.state.movimentosVencedor + 1
       });
 
       if(!conferirVencedor(casas)) {
@@ -48,6 +63,8 @@ class Tabuleiro extends React.Component {
             pensando: false
           });
         }, 2000);
+      } else {        
+        this.setState({tempoVencedor: this.state.tempo});
       }
     }  
   }
@@ -69,8 +86,8 @@ class Tabuleiro extends React.Component {
       status = 'Você venceu!';
       infoBottom = (<div className="form-vitoria">
         <form>
-          <input type="text" placeholder="Insira seu nome" />
-          <button onClick={this.escreveNoRanking('', '')} type="button">Registrar</button>
+          <input type="text" placeholder="Insira seu nome" onChange={this.handleChangeNome} />
+          <button onClick={this.escreveNoRanking} type="button">Registrar</button>
         </form>
       </div>)
     } else {
@@ -79,7 +96,7 @@ class Tabuleiro extends React.Component {
       } else {
         status = '';
         infoBottom = (<div className="tempo">
-            Tempo: <Timer />
+            Tempo: <Timer tempo={this.state.tempo} atualizaTempo={this.atualizaTempo} />
           </div>);
       }
     }

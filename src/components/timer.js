@@ -6,7 +6,7 @@ class Timer extends React.Component {
     this.updateDate = this.updateDate.bind(this);
     
     this.state = {
-      date: 0,
+      date: this.props.tempo,
     }
     this.interval = setInterval(this.updateDate, 1000);
   }
@@ -19,6 +19,7 @@ class Timer extends React.Component {
     this.setState({
       date: this.state.date + 1,
     });
+    this.props.atualizaTempo()
   }
   
   render() {
