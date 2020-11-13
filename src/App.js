@@ -51,15 +51,13 @@ function Home() {
         </tr>
       </thead>
       <tbody>
-        {estadoGlobal.ganhadores.sort((a, b) => (a.tempo > b.tempo) ? 1 : -1).map(function(elemento, index){
-          if (index < 10) {
-            return (<tr>
-              <td>{index + 1}</td>
-              <td>{elemento.nome}</td>
-              <td>{elemento.movimentos}</td>
-              <td>{Math.floor(elemento.tempo / 60)}:{(elemento.tempo % 60) < 10 ? '0' + (elemento.tempo % 60) : (elemento.tempo % 60) }</td>
-            </tr>)
-          }
+        {estadoGlobal.ganhadores.sort((a, b) => (a.tempo > b.tempo) ? 1 : -1).slice(0, 10).map(function(elemento, index){
+          return (<tr>
+            <td>{index + 1}</td>
+            <td>{elemento.nome}</td>
+            <td>{elemento.movimentos}</td>
+            <td>{Math.floor(elemento.tempo / 60)}:{(elemento.tempo % 60) < 10 ? '0' + (elemento.tempo % 60) : (elemento.tempo % 60) }</td>
+          </tr>)
         })}
       </tbody>
     </table>
